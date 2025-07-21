@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  agridrone:
+    build:
+      context: ./Agridrone-API
+      dockerfile: ../Dockerfile.agridrone
+    ports:
+      - "8001:8001"
+    volumes:
+      - .:/app
+    environment:
+      - NDVI_MODEL_PATH=/app/Agridrone-API/ndvi_best_model
+      - YOLO_MODEL_PATH=/app/Agridrone-API/best_yolo_model.pt
+    restart: unless-stopped
+    networks:
+      - api-network
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - agridrone
+    restart: unless-stopped
+    networks:
+      - api-network
+
+networks:
+  api-network:
+    driver: bridge 

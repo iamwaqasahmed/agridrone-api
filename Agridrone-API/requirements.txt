@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+python-multipart
+tensorflow
+segmentation-models
+rasterio
+# ultralytics==8.3.78  # Use local version, do not install from PyPI
+pillow
+numpy
+matplotlib
+# CPU-only PyTorch wheels
+--find-links https://download.pytorch.org/whl/torch_stable.html
+torch==2.1.0+cpu
+torchvision==0.16.0+cpu
+efficientnet
